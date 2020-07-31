@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <!-- font awesome -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+
+    <!-- google fonts -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Crimson+Text|Work+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/bootstrap.css" />
+
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Budget App</title>
+  </head>
+
+  <!-- add budget modal -->
+  <div
+    class="modal fade"
+    id="addBudgetModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="addBudgetModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title bodyfont font-weight-bold" id="">
+            Add an Item
+          </h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true" class="fa fa-times-circle"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="" id="submitAddBudget" method="POST" action="">
+            <div class="form-group">
+              <label class="font-weight-bold text-danger" for="type"
+                >Type of Item</label
+              >
+              <select class="form-control" name="type" id="type">
+                <option value="income">income</option>
+                <option value="expense">expense</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="font-weight-bold text-danger" for="desc"
+                >Description</label
+              >
+              <input
+                class="form-control"
+                type="text"
+                name="desc"
+                id="desc"
+                placeholder="Enter your item description"
+              />
+            </div>
+
+            <div class="form-group">
+              <label class="font-weight-bold text-danger" for="amount"
+                >Enter the amount</label
+              >
+              <input
+                class="form-control"
+                type="number"
+                name="amount"
+                id="amount"
+                placeholder="Enter the amount"
+              />
+            </div>
+            <!-- <div class="form-group">
+							<label class="font-weight-bold text-danger" for="time">Time</label>
+							<input
+								class="form-control"
+								type="date"
+								name="time"
+								id="time"
+								placeholder=""
+							/>
+						</div> -->
+            <button class="btn btn-primary">Add Budget</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="closeAddBudgetModalBtn"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- edit budget modal -->
+  <div
+    class="modal fade"
+    id="editBudgetModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="editBudgetModal"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title bodyfont font-weight-bold" id="">
+            Edit Budget
+          </h2>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true" class="fa fa-times-circle"></span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form class="" id="submitEditBudget" method="POST" action="">
+            <button class="btn btn-primary">Edit Budget</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            id="closeEditBudgetModalBtn"
+            class="btn btn-danger"
+            data-dismiss="modal"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <body>
+    <div class="app bg-brand-light p-5">
+      <div class="w-75 bg-brand rounded p-5 mx-auto text-white">
+        <!-- balance -->
+        <div class="balance text-center">
+          <p class="m-0">balance</p>
+          <h1 class="font-weight-bold m-0" id="budgetBalance">
+            <!-- &#x20a6;100,000 -->
+          </h1>
+        </div>
+        <!-- contents -->
+        <div class="w-75 mx-auto">
+          <!-- income and expense totals -->
+          <div class="row mx-0 mt-2">
+            <!-- income -->
+            <div class="col-sm-6 rounded bg-success">
+              <h2 class="bodyfont pt-2" id="incomeTotals">&#x20a6;0</h2>
+            </div>
+
+            <!-- expense -->
+            <div class="col-sm-6 rounded bg-danger">
+              <h2 class="bodyfont pt-2" id="expenseTotals">&#x20a6;0</h2>
+            </div>
+          </div>
+
+          <!-- items -->
+          <ul class="bg-dark-brand items p-5 mt-2 rounded">
+            <p>You don't have any budget added to the list.</p>
+          </ul>
+
+          <a
+            href="#addBudgetModal"
+            data-toggle="modal"
+            data-target="#addBudgetModal"
+            class="m-5 mx-auto px-5 py-2 btn text-capitalize font-weight-bold btn-success"
+            >add a budget</a
+          >
+          <a
+            href="#editBudgetModal"
+            data-toggle="modal"
+            data-target="#editBudgetModal"
+            class="m-5 mx-auto px-5 py-2 btn text-capitalize font-weight-bold btn-danger d-none"
+            >edit budget</a
+          >
+        </div>
+      </div>
+    </div>
+
+    <script src="js/jquery3.4.1.js"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
